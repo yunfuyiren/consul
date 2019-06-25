@@ -3,9 +3,10 @@ require "rails_helper"
 describe ConsulFormBuilder do
   class DummyModel
     include ActiveModel::Model
-    attr_accessor :title, :summary
+    attr_accessor :title, :summary, :terms_of_service, :awesome
 
     validates :title, presence: true
+    validates :terms_of_service, acceptance: true
   end
 
   let(:builder) { ConsulFormBuilder.new(:dummy, DummyModel.new, ActionView::Base.new, {}) }
@@ -42,6 +43,20 @@ describe ConsulFormBuilder do
 
     it "does not generate a required attribute for optional fields" do
       render builder.text_field(:summary)
+
+      expect(page).not_to have_css "label.required"
+      expect(page).not_to have_css "input[required]"
+    end
+
+    it "generates a required attribute for checkboxes validating acceptance" do
+      render builder.check_box(:terms_of_service)
+
+      expect(page).to have_css "label.required"
+      expect(page).to have_css "input[required]"
+    end
+
+    it "does not generate a required attribute for optional check boxes" do
+      render builder.check_box(:awesome)
 
       expect(page).not_to have_css "label.required"
       expect(page).not_to have_css "input[required]"
