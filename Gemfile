@@ -14,6 +14,7 @@ gem "ckeditor", "~> 4.3.0"
 gem "cocoon", "~> 1.2.9"
 gem "daemons", "~> 1.2.4"
 gem "dalli", "~> 2.7.6"
+gem "database_cleaner", "~> 1.7.0"
 gem "delayed_job_active_record", "~> 4.1.3"
 gem "devise", "~> 4.7.1"
 gem "devise-async", "~> 1.0.0"
@@ -95,7 +96,6 @@ group :development do
   gem "capistrano-rails", "~> 1.4.0", require: false
   gem "capistrano3-delayed-job", "~> 1.7.3"
   gem "capistrano3-puma", "~> 4.0.0"
-  gem "database_cleaner", "~> 1.7.0"
   gem "erb_lint", require: false
   gem "github_changelog_generator", "~> 1.15.0"
   gem "mdl", "~> 0.5.0", require: false
