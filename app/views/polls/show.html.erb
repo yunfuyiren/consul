@@ -54,6 +54,8 @@
             <h3><%= answer.title %></h3>
           <% end %>
 
+          <%= render "demo_gallery", answer: answer %>
+
           <% if answer.images.any? %>
             <%= render "gallery", answer: answer %>
           <% end %>
