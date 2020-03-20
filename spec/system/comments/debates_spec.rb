@@ -381,8 +381,18 @@ describe "Commenting debates" do
 
     within "#comment_#{comment.id}" do
       page.find("#flag-expand-comment-#{comment.id}").click
-      expect(page).to have_selector("#flag-comment-#{comment.id}")
+      page.find("#flag-comment-#{comment.id}").click
+
+      expect(page).to have_css("#unflag-expand-comment-#{comment.id}")
+      expect(Flag.flagged?(user, comment)).to be
+
+      page.find("#unflag-expand-comment-#{comment.id}").click
+      page.find("#unflag-comment-#{comment.id}").click
+
+      expect(page).to have_css("#flag-expand-comment-#{comment.id}")
     end
+
+    expect(Flag.flagged?(user, comment)).not_to be
   end
 
   scenario "Erasing a comment's author" do
