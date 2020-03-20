@@ -1,13 +1,22 @@
 shared_examples "flaggable" do |factory_name|
-  let(:user) { create(:user) }
+  include ActionView::RecordIdentifier
+
+  let(:user) { create(:user, :level_two) }
   let(:flaggable) { create(factory_name) }
-  let(:path) { polymorphic_path(flaggable) }
+
+  let(:path) do
+    if flaggable.is_a?(Comment)
+      polymorphic_path(flaggable.commentable)
+    else
+      polymorphic_path(flaggable)
+    end
+  end
 
   scenario "Flagging as inappropriate", :js do
     login_as(user)
     visit path
 
-    within ".flag-content" do
+    within "##{dom_id(flaggable)} .flag-content" do
       find(".icon-flag").click
       click_link "Flag as inappropriate"
 
@@ -24,7 +33,7 @@ shared_examples "flaggable" do |factory_name|
     login_as(user)
     visit path
 
-    within ".flag-content" do
+    within "##{dom_id(flaggable)} .flag-content" do
       expect(page).to have_css ".flag-active"
 
       find(".icon-flag").click
@@ -41,7 +50,7 @@ shared_examples "flaggable" do |factory_name|
     login_as(user)
     visit path
 
-    within ".flag-content" do
+    within "##{dom_id(flaggable)} .flag-content" do
       find(".icon-flag").click
       click_link "Flag as inappropriate"
 
