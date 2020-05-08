@@ -16,6 +16,15 @@
 // 01. Dashboard global
 // --------------------
 
+.proposal-dashboard {
+  display: flex;
+  flex-direction: column;
+
+  > :last-child {
+    flex: 1;
+  }
+}
+
 .proposal-title {
   display: inline-block;
 

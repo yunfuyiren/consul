@@ -22,6 +22,12 @@ $sidebar-hover:  #25597c;
 $sidebar-active: #f4fcd0;
 
 .admin {
+  display: flex;
+  flex-direction: column;
+
+  > :last-child {
+    flex: 1;
+  }
 
   h2 {
     font-weight: 100;
