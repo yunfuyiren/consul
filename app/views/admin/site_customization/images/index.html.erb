@@ -21,7 +21,7 @@
             </div>
             <div class="small-12 medium-6 large-6 column">
               <%= f.submit(t("admin.site_customization.images.index.update"), class: "button hollow") %>
-              <%= render "shared/table_actions", record: image, actions: [:destroy] if image.image.exists? %>
+              <%= render Admin::TableActionsComponent.new(image, actions: [:destroy]) if image.image.exists? %>
             </div>
           <% end %>
         </td>
