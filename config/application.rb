@@ -1,6 +1,7 @@
 require_relative "boot"
 
 require "rails/all"
+require "view_component/engine"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -76,6 +77,7 @@ module Consul
     # * English: https://github.com/consul/consul/blob/master/CUSTOMIZE_EN.md
     # * Spanish: https://github.com/consul/consul/blob/master/CUSTOMIZE_ES.md
     #
+    config.autoload_paths << "#{Rails.root}/app/components/custom"
     config.autoload_paths << "#{Rails.root}/app/controllers/custom"
     config.autoload_paths << "#{Rails.root}/app/models/custom"
     config.paths["app/views"].unshift(Rails.root.join("app", "views", "custom"))
