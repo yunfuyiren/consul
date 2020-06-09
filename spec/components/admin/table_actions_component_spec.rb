@@ -47,5 +47,11 @@ module Admin
       expect(page).to have_link "Edit", href: "/myedit"
       expect(page).to have_link "Delete", href: "/mydestroy"
     end
+
+    it "allows custom confirmation text" do
+      render_inline TableActionsComponent.new(banner, destroy_confirmation: "Are you mad? Be careful!")
+
+      expect(page).to have_css "a[data-confirm='Are you mad? Be careful!']"
+    end
   end
 end
