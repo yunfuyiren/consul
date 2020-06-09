@@ -33,13 +33,17 @@
           </td>
           <td>
             <% if user.official? %>
-              <%= link_to  t("admin.officials.search.edit_official"),
-                           edit_admin_official_path(user),
-                           class: "button hollow expanded" %>
+              <%= render Admin::TableActionsComponent.new(
+                actions: [:edit],
+                edit_path: edit_admin_official_path(user),
+                edit_text: t("admin.officials.search.edit_official")
+              ) %>
             <% else %>
-              <%= link_to t("admin.officials.search.make_official"),
-                          edit_admin_official_path(user),
-                          class: "button expanded" %>
+              <%= render Admin::TableActionsComponent.new(
+                actions: [:edit],
+                edit_path: edit_admin_official_path(user),
+                edit_text: t("admin.officials.search.make_official")
+              ) %>
             <% end %>
           </td>
         </tr>
