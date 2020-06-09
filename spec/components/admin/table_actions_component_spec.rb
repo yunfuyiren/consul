@@ -31,5 +31,14 @@ module Admin
         expect(page).not_to have_link "Edit"
       end
     end
+
+    it "allows custom texts for actions" do
+      render_inline TableActionsComponent.new(banner, edit_text: "change banner", destroy_text: "annihilate")
+
+      expect(page).to have_link "annihilate"
+      expect(page).to have_link "change banner"
+      expect(page).not_to have_link "delete"
+      expect(page).not_to have_link "Edit"
+    end
   end
 end
