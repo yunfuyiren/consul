@@ -53,5 +53,14 @@ module Admin
 
       expect(page).to have_css "a[data-confirm='Are you mad? Be careful!']"
     end
+
+    it "allows custom content" do
+      render_inline TableActionsComponent.new(banner) do
+        "<a href='/'>Main</a>".html_safe
+      end
+
+      expect(page).to have_link "Main", href: "/"
+      expect(page).to have_link "Edit"
+    end
   end
 end
