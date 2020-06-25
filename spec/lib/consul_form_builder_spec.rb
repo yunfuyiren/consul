@@ -3,7 +3,9 @@ require "rails_helper"
 describe ConsulFormBuilder do
   class DummyModel
     include ActiveModel::Model
-    attr_accessor :title
+    attr_accessor :title, :summary
+
+    validates :title, presence: true
   end
 
   let(:builder) { ConsulFormBuilder.new(:dummy, DummyModel.new, ActionView::Base.new, {}) }
@@ -27,6 +29,22 @@ describe ConsulFormBuilder do
       render builder.text_field(:title)
 
       expect(page).not_to have_css "input[hint]"
+    end
+  end
+
+  describe "required attributes" do
+    it "generates a required attribute for required fields" do
+      render builder.text_field(:title)
+
+      expect(page).to have_css "label.required"
+      expect(page).to have_css "input[required]"
+    end
+
+    it "does not generate a required attribute for optional fields" do
+      render builder.text_field(:summary)
+
+      expect(page).not_to have_css "label.required"
+      expect(page).not_to have_css "input[required]"
     end
   end
 
